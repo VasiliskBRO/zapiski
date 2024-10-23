@@ -1,0 +1,12 @@
+ip domain name <имя>
+hostname <имя>
+crypto key generate rsa
+service password-encryption
+username <имя> privilege 15 secret <пароль>
+aaa new-model
+line vty 0 4
+transport input ssh
+logging synchronous
+privilege level 15
+exec-timeout 60 0
+access-class 23 in

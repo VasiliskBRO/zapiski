@@ -1,0 +1,5 @@
+int e-/-
+standby <group_number> ip <virtual_ip_address>
+standby <group_number> priority <priority>
+standby 1 preempt
+standby 1 preempt delay minimum 300

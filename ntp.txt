@@ -1,0 +1,9 @@
+systemctl stop systemd-timesyncd.service
+systemctl disable systemd-timesyncd.service
+dpkg-reconfigure tzdata
+apt install chrony
+nano /etc/chrony/chrony.conf идописать
+local stratum <цифра>
+manual
+
+reboot

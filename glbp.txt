@@ -1,0 +1,8 @@
+Int e0/0
+IP add <ip> <маска>
+glbp 1 ip <ip> //включение GLBPRouter
+glbp 1 priority <приоритет> #установка приоритета 110
+glbp 1 preempt //установит режим приемптинга для AVG
+glbp 1 weighting 115 //установить вес для AVF в 115
+Установка пароля
+glbp 1 authentication text CISCO

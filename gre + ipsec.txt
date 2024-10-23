@@ -1,0 +1,21 @@
+gre
+
+interface Tunnel <№ тунеля>
+ip address ip/маска
+tunnel source (ip вашего роутера в сторону интернета либо интерфейс в сторону интенета)
+tunnel destination (ip конечного роутера)
+
+IPsec
+
+crypto isakmp policy 1
+encr aes
+authentication pre-share
+crypto isakmp key CISCO address (ip соседа)
+crypto ipsec transform-set AES128-SHA esp-aes esp-sha-hmac
+crypto map MAP1 10 ipsec-isakmp
+set peer 200.0.0.1
+set transform-set AES128-SHA
+match address 101
+access-list 101 permit ip host 10.0.0.0 host 10.1.1.0
+interface Ethernet0/0
+crypto map MAP1

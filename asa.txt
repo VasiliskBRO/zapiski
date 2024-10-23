@@ -1,0 +1,14 @@
+int <интерфейс>
+nameif <имя>
+security-level <0-100>
+ip add <ip>/<маска>
+no sh
+
+route <nameif> 0.0.0.0 0.0.0.0 <ip>
+object network <имя>
+subnet <ip> <маска>
+nat (<nameif1>,<nameif2>) dynamic interface
+
+policy-map global_policy
+class inspection_default
+inspect icmp
