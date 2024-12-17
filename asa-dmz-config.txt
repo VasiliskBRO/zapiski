@@ -1,0 +1,57 @@
+# Настройка DMZ на Cisco ASA
+
+## Описание
+DMZ (демилитаризованная зона) на Cisco ASA - это сегмент сети, расположенный между внутренней защищенной сетью и внешней небезопасной сетью (обычно интернетом). DMZ используется для размещения серверов, которые должны быть доступны из интернета, но при этом изолированы от внутренней сети.
+
+## Базовая конфигурация
+
+### 1. Настройка интерфейса DMZ
+```
+ciscoasa(config)# interface GigabitEthernet0/2
+ciscoasa(config-if)# nameif dmz
+ciscoasa(config-if)# security-level 50
+ciscoasa(config-if)# ip address 172.16.1.1 255.255.255.0
+ciscoasa(config-if)# no shutdown
+```
+
+### 2. Настройка NAT для серверов в DMZ
+```
+ciscoasa(config)# object network DMZ-SERVER
+ciscoasa(config-network-object)# host 172.16.1.10
+ciscoasa(config-network-object)# nat (dmz,outside) static 203.0.113.10
+```
+
+### 3. Настройка правил доступа
+```
+# Разрешить доступ из интернета к серверу в DMZ
+ciscoasa(config)# access-list OUTSIDE-DMZ extended permit tcp any host 203.0.113.10 eq 80
+
+# Разрешить ограниченный доступ из DMZ во внутреннюю сеть
+ciscoasa(config)# access-list DMZ-INSIDE extended permit tcp 172.16.1.0 255.255.255.0 192.168.1.0 255.255.255.0 eq 1433
+
+# Применить списки доступа к интерфейсам
+ciscoasa(config)# access-group OUTSIDE-DMZ in interface outside
+ciscoasa(config)# access-group DMZ-INSIDE in interface dmz
+```
+
+### 4. Настройка маршрутизации
+```
+ciscoasa(config)# route dmz 172.16.1.0 255.255.255.0 172.16.1.254
+```
+
+## Важные рекомендации
+
+1. Security-level для DMZ обычно устанавливается в 50 (между inside (100) и outside (0))
+2. Тщательно продумывайте правила доступа между зонами
+3. Используйте статический NAT для серверов, которые должны быть доступны извне
+4. Минимизируйте разрешенный трафик между DMZ и внутренней сетью
+
+## Проверка конфигурации
+
+После настройки рекомендуется проверить:
+```
+show running-config interface GigabitEthernet0/2
+show nat
+show access-list
+show route
+```
