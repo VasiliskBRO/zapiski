@@ -1,12 +1,17 @@
-ip domain name <имя>
-hostname <имя>
-crypto key generate rsa
-service password-encryption
-username <имя> privilege 15 secret <пароль>
-aaa new-model
-line vty 0 4
-transport input ssh
-logging synchronous
-privilege level 15
-exec-timeout 60 0
-access-class 23 in
+#!/bin/bash
+
+# Создаем пользователя sshuser с UID 1010 и домашней директорией
+useradd -m -u 1010 -s /bin/bash sshuser
+
+# Устанавливаем пароль для пользователя sshuser
+echo "sshuser:toor" | chpasswd
+
+# Обновляем пакеты и устанавливаем sudo
+apt update && apt install -y sudo
+
+# Добавляем sshuser в sudoers с правами NOPASSWD
+echo "sshuser ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/sshuser
+chmod 440 /etc/sudoers.d/sshuser
+
+# Переключаемся на пользователя sshuser
+su - sshuser -c "sudo apt update"
