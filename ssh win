@@ -1,0 +1,10 @@
+Для установки OpenSSH сервера на Windows используйте следующую команду:
+Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Server*' | Add-WindowsCapability –Online
+Затем проверьте доступность установленного компонента:
+Get-WindowsCapability -Online | ? Name -like 'OpenSSH.Ser*'
+После этого настроим службу sshd на автоматический запуск:
+Set-Service -Name sshd -StartupType 'Automatic'
+Запустите службу:
+Start-Service sshd
+Для подключения используйте команду:
+ssh user@ip
