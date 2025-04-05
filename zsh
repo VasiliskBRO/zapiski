@@ -1,6 +1,6 @@
 apt install zsh git curl
 curl -L git.io/antigen > antigen.zsh
-vim (nano) /root/.zshrc и /home/user/.zshrc
+nano /root/.zshrc и /home/user/.zshrc
 
 source /path-to-antigen/antigen.zsh
 
