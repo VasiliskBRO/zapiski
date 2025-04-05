@@ -24,7 +24,7 @@ mysql> set global log_bin_trust_function_creators = 0;
 mysql> quit;
 Настройте базу данных для Zabbix сервера
 nano /etc/zabbix/zabbix_server.conf
-DBPassword=password
+DBPassword=ваш пароль
 Запустите процессы Zabbix сервера и агента
 systemctl restart zabbix-server zabbix-agent apache2
 systemctl enable zabbix-server zabbix-agent apache2
