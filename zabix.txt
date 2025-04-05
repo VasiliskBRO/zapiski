@@ -1,12 +1,12 @@
 Скачиваем файл с установщиком Zabbix
-wget https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
+wget https://repo.zabbix.com/zabbix/7.2/release/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.2+debian12_all.deb
 устанавливаем
-dpkg -i zabbix-release_6.4-1+debian11_all.deb
+dpkg -i zabbix-release_latest_7.2+debian12_all.deb
 обновляем репозиторий apt
 apt update
 apt upgrade
 устанавливаем компоненты Zabbix
-apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent default-mysql-server
+apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent mariadb-server
 Создайте базу данных
 mysql -uroot -p
 <ваш пароль>
@@ -16,7 +16,7 @@ MySQL> grant all privileges on zabbix.* to zabbix@localhost;
 mysql> set global log_bin_trust_function_creators = 1;
 mysql> quit;
 На хосте Zabbix сервера импортируйте начальную схему и данные. Вам будет предложено ввести недавно созданный пароль.
-zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -p Zabbix
+zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -p zabbix
 Тут нужно подождать, пока не появится возможность ввода
 Выключите опцию log_bin_trust_function_creators после импорта схемы базы данных.
 mysql -uroot -p
