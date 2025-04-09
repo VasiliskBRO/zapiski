@@ -1,3 +1,4 @@
+делать всё от рута
 apt install zsh git curl
 curl -L git.io/antigen > antigen.zsh
 nano /root/.zshrc и /home/user/.zshrc
@@ -17,3 +18,5 @@ EOBUNDLES
 antigen theme random
 
 antigen apply
+chsh -s $(which zsh)
+chsh -s $(which zsh) имя пользователя 
