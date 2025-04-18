@@ -129,7 +129,7 @@ sleep 2
 cat << EOF > $REVERSE_ZONE_FILE_21
 \$TTL    604800
 @       IN      SOA     $PRIMARY_NS $ADMIN_EMAIL (
-                              $SERIAL         ; Serial
+                              1         ; Serial
                          604800         ; Refresh
                           86400         ; Retry
                         2419200         ; Expire
