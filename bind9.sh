@@ -28,6 +28,8 @@ PRIMARY_NS="hq-srv.$ZONE_DOMAIN."
 apt update
 apt install -y bind9 dnsutils
 
+sleep 2
+
 cat << EOF > $NAMED_CONF_OPTIONS
 options {
         directory "/var/cache/bind";
