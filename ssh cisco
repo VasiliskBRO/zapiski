@@ -1,6 +1,6 @@
 ip domain name <имя>  
 hostname <имя>  
-crypto key generate rsa modules 1024
+crypto key generate rsa modulus 1024
 service password-encryption  
 username <имя> privilege 15 secret <пароль>  
 aaa new-model  
