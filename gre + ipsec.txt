@@ -8,14 +8,21 @@ tunnel destination (ip конечного роутера)
 IPsec
 
 crypto isakmp policy 1
-encr aes
-authentication pre-share
-crypto isakmp key CISCO address (ip соседа)
-crypto ipsec transform-set AES128-SHA esp-aes esp-sha-hmac
-crypto map MAP1 10 ipsec-isakmp
-set peer 200.0.0.1
-set transform-set AES128-SHA
-match address 101
-access-list 101 permit ip host 10.0.0.0 host 10.1.1.0
+ encr 3des
+ hash md5
+ authentication pre-share
+ group 2
+ lifetime 86400
+
+crypto isakmp key merionet address <IP в интернет>
+ip access-list extended VPN-TRAFFIC
+ permit ip <IP в локальную сеть> 0.0.0.255 <IP удаленной локальной сети> 0.0.0.255
+ 
+crypto ipsec transform-set TS esp-3des esp-md5-hmac
+crypto map CMAP 10 ipsec-isakmp
+ set peer <IP в интернет>
+ set transform-set TS
+ match address VPN-TRAFFIC
+
 interface Ethernet0/0
-crypto map MAP1
+ crypto map MAP1
