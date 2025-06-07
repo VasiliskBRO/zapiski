@@ -8,7 +8,7 @@
    - На HQ-SRV и BR-SRV: создать `sshuser` (UID 1010, пароль `P@ssw0rd`, sudo без пароля).  
    - На маршрутизаторах: создать `net_admin`   
 Настроить ntp server
-Настроить snmp server community
+Настроить snmp-server community
 
 1. HQ-SRV (Основной сервер)
 
