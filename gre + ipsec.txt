@@ -25,4 +25,4 @@ crypto map CMAP 10 ipsec-isakmp
  match address VPN-TRAFFIC
 
 interface Ethernet0/0
- crypto map MAP1
+ crypto map CMAP
