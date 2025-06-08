@@ -13,7 +13,6 @@
 1. HQ-SRV (Основной сервер)
 
 dpkg-reconfigure tzdata 
-dpkg-reconfigure locales
 
 Основные сервисы
 apt install ssh sudo bind9 dnsutils chrony nfs-kernel-server mdadm
@@ -29,9 +28,9 @@ apt install ssh sudo bind9 dnsutils chrony nfs-kernel-server mdadm
 RAID 5 и NFS  
    - На HQ-SRV создать RAID 5 из 3 дисков:       
       mdadm --create --verbose /dev/md0 --level=5 --raid-devices=3 /dev/sdb /dev/sdc /dev/sdd
+      mdadm --detail --scan | tee -a /etc/mdadm/mdadm.conf
+      update-initramfs -u
       mkfs.ext4 -F /dev/md0
-      mkdir /raid5
-      mount /dev/md0 /raid5
    - Настроить NFS для общего доступа `/raid5/nfs` с HQ-CLI.  
 
 Для Moodle (LMS)
@@ -42,6 +41,7 @@ apt install apache2 mariadb-server php libapache2-mod-php php-mysql php-xml php-
 
  Для мониторинга (Zabbix)
 apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent
+dpkg-reconfigure locales
   
    - Установить Zabbix на HQ-SRV, настроить мониторинг устройств через SNMP (маршрутизаторы) и Zabbix Agent (серверы).  
 
