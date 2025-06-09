@@ -4,6 +4,7 @@ dpkg-reconfigure tzdata
 apt install chrony
 nano /etc/chrony/chrony.conf идописать
 local stratum <цифра>
+allow 0.0.0.0/24
 manual
 
 reboot
