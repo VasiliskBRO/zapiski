@@ -7,4 +7,4 @@ local stratum <цифра>
 allow 0.0.0.0/24
 manual
 
-reboot
+systemctl restart chrony
